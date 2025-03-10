@@ -1,3 +1,5 @@
 import data_combining_functions
 
 data_combining_functions.combine_cloud_coverage()
+#data_combining_functions.combine_snow_depth_and_temperature_files()
+
