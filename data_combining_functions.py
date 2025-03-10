@@ -68,3 +68,23 @@ def combine_cloud_coverage():
     lahti_df.to_csv(lahti_output_file, index=False)
     ilomantsi_df.to_csv(ilomantsi_output_file, index=False)
     purnu_df.to_csv(purnu_output_file, index=False)
+
+
+def combine_snow_depth_and_temperature_files():
+    lahti_df = pd.concat(map(pd.read_csv, 
+                             ['snow_depth_avg_temp_by_location\Lahti Laune_ 10.3.2003 - 10.3.2025_fd9d10d9-0872-4668-87a0-bb4fd7412ae1.csv',
+                              'snow_depth_avg_temp_by_location\Lahti Sopenkorpi_ 10.3.2003 - 10.3.2025_e99c29a9-712c-4dad-a31b-dd7a2fd91803.csv']), 
+                              ignore_index=True)
+    kuopio_df = pd.concat(map(pd.read_csv, 
+                              ['snow_depth_avg_temp_by_location\Kuopio keskusta_ 10.3.2003 - 10.3.2025_2977314f-b9de-475d-99d3-0392800e7d51.csv',
+                               'snow_depth_avg_temp_by_location/Kuopio Savilahti_ 10.3.2003 - 10.3.2025_5a13f70b-0d61-4ee1-a94b-7773b9331106.csv']), 
+                              ignore_index=True)
+
+    # Define the paths to new csv-files
+    kuopio_output_file = os.path.join('snow_depth_avg_temp_by_location', 'Kasurila_snow_dept_avg_temp.csv')
+    lahti_output_file = os.path.join('snow_depth_avg_temp_by_location', 'Messila_snow_dept_avg_temp.csv')
+
+    # Write to csv-files
+    kuopio_df.to_csv(kuopio_output_file, index=False)
+    lahti_df.to_csv(lahti_output_file, index=False)
+
