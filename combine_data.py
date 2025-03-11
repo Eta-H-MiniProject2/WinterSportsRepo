@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
 import glob
-import os 
+import os
+
 
 def combine_data_by_location(location):
 
-    folders = ['cloud_coverage_by_location','snow_depth_avg_temp_by_location','uv_index_by_location']
+    folders = ['cloud_coverage_by_location',
+               'snow_depth_avg_temp_by_location',
+               'uv_index_by_location']
     
     dataframes = []
 
@@ -25,13 +28,11 @@ def combine_data_by_location(location):
             if 'Observation station' in df.columns.to_list():
                 df.drop(['Observation station'], inplace=True, axis=1)
 
-            #print(df)
+            if 'Direct solar radiation mean [W/m2]' in df.columns.to_list():
+                df.drop(['Direct solar radiation mean [W/m2]'], inplace=True, axis=1)
+
             dataframes.append(df)
-
-        if location in ['Kasurila','Mustavaara']:
-            print('Kasurila and Mustavaara are not included to code yet')
-            return
-
+    
     merged_df = dataframes[0]
     
     for df in dataframes[1:]:
@@ -44,7 +45,7 @@ def combine_data_by_location(location):
 
     merged_df.rename(columns={'Snow depth [cm]': 'snow_depth_cm', 
                               'Average temperature [°C]': 'avg_temp_c', 
-                              'UV index mean': 'uv_index'}, inplace=True) # rename the columns
+                              'UV index mean': 'uv_index'}, inplace=True) # Rename the columns
     
     # Define the path where to write the files
     subfolder = "data_by_location"
@@ -52,6 +53,4 @@ def combine_data_by_location(location):
 
     output_file = os.path.join(subfolder, f'{location}_data.csv')
 
-    #print(merged_df)
     merged_df.to_csv(output_file, index=False)
-
