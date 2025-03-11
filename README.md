@@ -12,7 +12,7 @@ All data from Finnish Meteorological Institute [link to source](https://en.ilmat
 | Messilä | Lahti Laune, Lahti Sopenkorpi | Lahti Laune, Lahti Sopenkorpi | Lahti Laune, Lahti Sopenkorpi |  |
 | Mustavaara | Ilomantsi Mekrijärvi | Ilomantsi Mekrijärvi | Ilomantsi Mekrijärvi |  |
 | Ounasvaara | Pello parish | Ylitornio Meltosjärvi | Ylitornio Meltosjärvi |  |
-| Purnu | Mikkeli airport  | Joutsa Savenaho | Joutsa Savenaho |  |
+| Purnu | Joutsa Savenaho, Lahti Laune  | Joutsa Savenaho | Joutsa Savenaho |  |
 | Ruka | Kuusamo Airport | Kuusamo Kiutaköngäs | Kuusamo Kiutaköngäs |  |
 | Ruunarinteet | Savonlinna Punkaharju | Savonlinna Punkaharju Laukansaari | Savonlinna Punkaharju Laukansaari |  |
 | Salla | Salla parish | Salla Naruska | Salla Naruska |  |
