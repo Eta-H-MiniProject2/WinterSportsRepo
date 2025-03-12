@@ -4,6 +4,13 @@ import glob
 import os
 
 
+def clean_data(df):
+    df = df.drop_duplicates(subset=['date'], keep='last')
+    df = df.replace('-', np.nan)
+    df.snow_depth_cm = df.snow_depth_cm.replace(to_replace='-1', value='0')
+    return df
+
+
 def combine_data_by_location(location):
 
     folders = ['cloud_coverage_by_location',
@@ -14,7 +21,7 @@ def combine_data_by_location(location):
 
     # Loop through each folder and read matching CSV files
     for folder in folders:
-        file_pattern = os.path.join(folder, f"*{location}*.csv")  # Match files containing given location
+        file_pattern = os.path.join(folder, f"{location}*.csv")  # Match files containing given location
         
         for file in glob.glob(file_pattern):
             df = pd.read_csv(file)
@@ -46,7 +53,10 @@ def combine_data_by_location(location):
     merged_df.rename(columns={'Snow depth [cm]': 'snow_depth_cm', 
                               'Average temperature [°C]': 'avg_temp_c', 
                               'UV index mean': 'uv_index'}, inplace=True) # Rename the columns
-    
+    merged_df = clean_data(merged_df)
+
+
+
     # Define the path where to write the files
     subfolder = "data_by_location"
     os.makedirs(subfolder, exist_ok=True)  # Create subfolder if it doesn't exist
