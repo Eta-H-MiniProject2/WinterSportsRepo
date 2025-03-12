@@ -21,7 +21,7 @@ def combine_data_by_location(location):
 
     # Loop through each folder and read matching CSV files
     for folder in folders:
-        file_pattern = os.path.join(folder, f"{location}*.csv")  # Match files containing given location
+        file_pattern = os.path.join(folder, f"*{location}*.csv")  # Match files containing given location
         
         for file in glob.glob(file_pattern):
             df = pd.read_csv(file)
