@@ -55,6 +55,8 @@ def combine_data_by_location(location):
                               'UV index mean': 'uv_index'}, inplace=True) # Rename the columns
     merged_df = clean_data(merged_df)
 
+    merged_df["location"] = location
+
 
 
     # Define the path where to write the files
