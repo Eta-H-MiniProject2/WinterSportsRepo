@@ -14,9 +14,9 @@ def clean_data(df):
 # Function writes combined data to csv-files.
 def combine_data_by_location(location):
 
-    folders = ['cloud_coverage_by_location',
-               'snow_depth_avg_temp_by_location',
-               'uv_index_by_location']
+    folders = ['raw_data/cloud_coverage_by_location',
+               'raw_data/snow_depth_avg_temp_by_location',
+               'raw_data/uv_index_by_location']
     
     dataframes = []
 

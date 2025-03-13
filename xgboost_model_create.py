@@ -6,7 +6,6 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from xgboost import XGBRegressor
 import xgboost as xgb
-import matplotlib.pyplot as plt
 from combine_data_functions import preprocess_with_time_features
 
 # If there is model created in the file, returns it
@@ -66,10 +65,6 @@ def train_xgboost_model(locations):
 
     # Save the model
     joblib.dump(model, 'snow_depth_time_model.joblib')
-
-    # Plot feature importance
-    xgb.plot_importance(model)
-    plt.show()
 
     print('Model created and saved.')
 

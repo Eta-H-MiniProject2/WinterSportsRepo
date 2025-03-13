@@ -2,15 +2,8 @@ import pandas as pd
 import numpy as np
 import joblib
 from datetime import datetime, timedelta
-from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import mean_squared_error
-from xgboost import XGBRegressor
-import xgboost as xgb
-import matplotlib.pyplot as plt
 from combine_data_functions import preprocess_with_time_features
-
+import os
 
 # Function to predict future years from given model
 def predict_future_snow_depth(model, start_date, days=365, location_data=None):
@@ -120,5 +113,14 @@ def create_prediction_files(locations):
         )
         future_predictions['location'] = location
 
-        future_predictions.to_csv(f'snow_depth_predictions_{location.lower()}_2025.csv', index=False)
+        #future_predictions.to_csv(f'snow_depth_predictions_{location.lower()}_2025.csv', index=False)
+
+        # Define the path where to write the files
+        subfolder = "final_data"
+        os.makedirs(subfolder, exist_ok=True)  # Create subfolder if it doesn't exist
+
+        output_file = os.path.join(subfolder, f'snow_depth_predictions_{location.lower()}.csv')
+
+        future_predictions.to_csv(output_file, index=False)
+
         print(f'Future predictions for {location} saved csv-file')
