@@ -119,7 +119,7 @@ def create_prediction_files(locations):
         subfolder = "final_data"
         os.makedirs(subfolder, exist_ok=True)  # Create subfolder if it doesn't exist
 
-        output_file = os.path.join(subfolder, f'snow_depth_predictions_{location.lower()}_2025.csv')
+        output_file = os.path.join(subfolder, f'snow_depth_predictions_{location.lower()}.csv')
 
         future_predictions.to_csv(output_file, index=False)
 
