@@ -57,8 +57,6 @@ def combine_data_by_location(location):
 
     merged_df["location"] = location
 
-
-
     # Define the path where to write the files
     subfolder = "data_by_location"
     os.makedirs(subfolder, exist_ok=True)  # Create subfolder if it doesn't exist
