@@ -4,7 +4,7 @@
 
 All data from Finnish Meteorological Institute [link to source](https://en.ilmatieteenlaitos.fi/download-observations).
 
-| Location  | Cloud coverage from | Temperature from | Snow depth from | UV index from | Used for training the model |
+| Location  | Cloud coverage | Temperature | Snow depth | UV index | Used for training the model |
 | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
 | Kasurila | Kuopio Savilahti | Kuopio Keskusta | Kuopio Keskusta | Sotkamo | X |
 | Levi | Kittilä Kenttärova | Kittilä Kenttärova | Kittilä Kenttärova | Sodankylä Tähtelä | |
