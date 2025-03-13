@@ -10,7 +10,8 @@ def clean_data(df):
     df.snow_depth_cm = df.snow_depth_cm.replace(to_replace='-1', value='0')
     return df
 
-
+# Combinig raw data from multiple files to one file per location.
+# Function writes combined data to csv-files.
 def combine_data_by_location(location):
 
     folders = ['cloud_coverage_by_location',
@@ -57,8 +58,6 @@ def combine_data_by_location(location):
 
     merged_df["location"] = location
 
-
-
     # Define the path where to write the files
     subfolder = "data_by_location"
     os.makedirs(subfolder, exist_ok=True)  # Create subfolder if it doesn't exist
@@ -66,3 +65,45 @@ def combine_data_by_location(location):
     output_file = os.path.join(subfolder, f'{location}_data.csv')
 
     merged_df.to_csv(output_file, index=False)
+    print(f'Raw data for {location} combined.')
+
+
+# Function for preprocessing the data for the model.
+# Function takes file path as a parameter
+# and returns dataframe
+def preprocess_with_time_features(file_path):
+    df = pd.read_csv(file_path)
+    
+    # Remove duplicates
+    df = df.drop_duplicates(subset=['date'], keep='last')
+    
+    # Replace values
+    df.replace(to_replace='-', value=np.nan, inplace=True)
+    df.snow_depth_cm = df.snow_depth_cm.replace(to_replace='-1', value='0')
+
+    # Delete rows where snow_depth is null
+    df = df.dropna(subset=['snow_depth_cm'])
+
+    # Convert to numeric
+    df['avg_temp_c'] = pd.to_numeric(df['avg_temp_c'], errors='coerce')
+    df['snow_depth_cm'] = pd.to_numeric(df['snow_depth_cm'], errors='coerce')
+    df['uv_index'] = pd.to_numeric(df['uv_index'], errors='coerce')
+    
+    # Create lag features
+    df['snow_depth_1d_ago'] = df['snow_depth_cm'].shift(1)
+    df['snow_depth_7d_ago'] = df['snow_depth_cm'].shift(7)
+    df['snow_depth_365d_ago'] = df['snow_depth_cm'].shift(365)
+
+    # Convert date string to datetime object
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Extract time-based features
+    df['year'] = df['date'].dt.year
+    df['month'] = df['date'].dt.month
+    df['day'] = df['date'].dt.day
+    df['day_of_year'] = df['date'].dt.dayofyear
+    
+    # Drop rows with missing target values
+    df = df.dropna(subset=['snow_depth_cm'])
+    
+    return df
